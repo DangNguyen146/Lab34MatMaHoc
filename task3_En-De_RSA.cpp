@@ -57,8 +57,6 @@ using CryptoPP::HexEncoder;
 #include <cryptopp/queue.h>
 using CryptoPP::ByteQueue;
 
-
-
 #include "cryptopp/filters.h"
 using CryptoPP::BufferedTransformation;
 using CryptoPP::PK_DecryptorFilter; // Public key decryption
@@ -111,10 +109,10 @@ int main(int argc, char *argv[])
     try
     {
 #ifdef __linux__
-    setlocale(LC_ALL, "");
+        setlocale(LC_ALL, "");
 #elif _WIN32
-    _setmode(_fileno(stdin), _O_U16TEXT);
-    _setmode(_fileno(stdout), _O_U16TEXT);
+        _setmode(_fileno(stdin), _O_U16TEXT);
+        _setmode(_fileno(stdout), _O_U16TEXT);
 #else
 #endif
         int mode;
@@ -123,13 +121,18 @@ int main(int argc, char *argv[])
         wcin.ignore();
         wcout << endl;
 
-        if (mode == 1)
+        switch (mode)
+        {
+        case 1:
         {
             En_RSA();
+            break;
         }
-        else
+        case 2:
         {
             De_RSA();
+            break;
+        }
         }
     }
     catch (CryptoPP::Exception &e)
@@ -246,17 +249,21 @@ void En_RSA()
     wcin >> mode;
     wcin.ignore();
     wcout << endl;
-    if (mode == 1)
+    switch (mode)
+    {
+    case 1:
     {
         wcout << "Input plaintext: ";
         fflush(stdin);
         getline(wcin, wplain);
+        break;
     }
-    else
+    case 2:
     {
         wplain = OpenandReadFile("plaintext.txt");
+        break;
     }
-
+    }
     plain = wstring_to_string(wplain);
     wcout << "Plaintext: " << wplain << endl;
 
@@ -298,15 +305,20 @@ void De_RSA()
     wcin >> mode;
     wcin.ignore();
     wcout << endl;
-    if (mode == 1)
+    switch (mode)
+    {
+    case 1:
     {
         wcout << "Input plaintext: ";
         fflush(stdin);
         getline(wcin, wplain);
+        break;
     }
-    else
+    case 2:
     {
         wplain = OpenandReadFile("cipher.txt");
+        break;
+    }
     }
 
     plain = wstring_to_string(wplain);
