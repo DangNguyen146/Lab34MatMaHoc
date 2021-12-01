@@ -57,8 +57,7 @@ using CryptoPP::HexEncoder;
 #include <cryptopp/queue.h>
 using CryptoPP::ByteQueue;
 
-#include "cryptopp/SecBlock.h"
-using CryptoPP::SecByteBlock;
+
 
 #include "cryptopp/filters.h"
 using CryptoPP::BufferedTransformation;
@@ -111,17 +110,17 @@ int main(int argc, char *argv[])
 {
     try
     {
-/*Set mode support Vietnamese*/
-#ifdef _linux_
-        setlocale(LC_ALL, "");
+#ifdef __linux__
+    setlocale(LC_ALL, "");
 #elif _WIN32
-        _setmode(_fileno(stdin), _O_U16TEXT);
-        _setmode(_fileno(stdout), _O_U16TEXT);
+    _setmode(_fileno(stdin), _O_U16TEXT);
+    _setmode(_fileno(stdout), _O_U16TEXT);
 #else
 #endif
         int mode;
         wcout << "(1)Encryption (2)Decryption: ";
         wcin >> mode;
+        wcin.ignore();
         wcout << endl;
 
         if (mode == 1)
@@ -245,6 +244,7 @@ void En_RSA()
     int mode;
     wcout << L"(1)Nhập từ màn hình (2)Nhập từ file plaintext.txt: ";
     wcin >> mode;
+    wcin.ignore();
     wcout << endl;
     if (mode == 1)
     {
@@ -296,6 +296,7 @@ void De_RSA()
     int mode;
     wcout << L"(1)Nhập từ màn hình (2)Nhập từ file cipher.txt: ";
     wcin >> mode;
+    wcin.ignore();
     wcout << endl;
     if (mode == 1)
     {

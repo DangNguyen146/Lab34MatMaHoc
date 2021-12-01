@@ -139,8 +139,7 @@ void verifyFunction();
 
 int main(int argc, char *argv[])
 {
-    /*Set mode support Vietnamese*/
-#ifdef _linux_
+#ifdef __linux__
     setlocale(LC_ALL, "");
 #elif _WIN32
     _setmode(_fileno(stdin), _O_U16TEXT);

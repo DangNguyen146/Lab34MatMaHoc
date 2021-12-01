@@ -57,8 +57,6 @@ using CryptoPP::HexEncoder;
 #include <cryptopp/queue.h>
 using CryptoPP::ByteQueue;
 
-#include "cryptopp/SecBlock.h"
-using CryptoPP::SecByteBlock;
 
 #include "cryptopp/filters.h"
 using CryptoPP::BufferedTransformation;
@@ -79,12 +77,12 @@ using CryptoPP::RSAES_PKCS1v15_Encryptor;
 
 #include "assert.h"
 
-/* Set _setmode()*/
 #ifdef _WIN32
 #include <io.h>
 #include <fcntl.h>
 #else
 #endif
+
 /* Convert string*/
 #include <locale>
 using std::wstring_convert;
@@ -106,12 +104,11 @@ int main(int argc, char *argv[])
 {
     try
     {
-/*Set mode support Vietnamese*/
-#ifdef _linux_
-        setlocale(LC_ALL, "");
+#ifdef __linux__
+    setlocale(LC_ALL, "");
 #elif _WIN32
-        _setmode(_fileno(stdin), _O_U16TEXT);
-        _setmode(_fileno(stdout), _O_U16TEXT);
+    _setmode(_fileno(stdin), _O_U16TEXT);
+    _setmode(_fileno(stdout), _O_U16TEXT);
 #else
 #endif
         wcout << "Create key" << endl;
